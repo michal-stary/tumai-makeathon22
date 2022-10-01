@@ -2,3 +2,5 @@ openpyxl
 transformers
 sentencepiece
 sentence-transformers
+flask
+flask_cors
