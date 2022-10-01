@@ -1,0 +1,4 @@
+openpyxl
+transformers
+sentencepiece
+sentence-transformers
