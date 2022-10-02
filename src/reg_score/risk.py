@@ -1,9 +1,27 @@
 import pandas as pd
 import numpy as np
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 import re
 from numpy import dot
 from numpy.linalg import norm
+import openai
+
+openai.api_key = "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"
+class RiskEstimatorGPT3():
+    def __init__(self):
+        pass
+    def __call__(self, text, **kwargs):
+        response = openai.Answer.create(
+
+                model="text-davinci-002",
+                file="file-Bil7GJIkeNbj8rJurv0V210c",
+                question=f"The startup which is {text}. Concerns the laws above?",
+                examples_context="In 2017, U.S. life expectancy was 78.6 years.",
+                examples=[["What is human life expectancy in the United States?", "78 years."]],
+                max_tokens=256,
+        )
+        return "No", response["selected_documents"][-1]['text']
+
 
 class RiskEstimator():
     def __init__(self):

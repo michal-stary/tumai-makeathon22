@@ -1,6 +1,8 @@
 flask
 flask_cors
+openai
 werkzeug
-sentence-transformers
+# sentence-transformers
 pandas
 numpy
+# transformers
