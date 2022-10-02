@@ -5,4 +5,5 @@ werkzeug
 # sentence-transformers
 pandas
 numpy
-# transformers
+transformers
+torch

@@ -12,16 +12,15 @@ class RiskEstimatorGPT3():
         pass
     def __call__(self, text, **kwargs):
         response = openai.Answer.create(
-
-                model="text-davinci-002",
-                file="file-Bil7GJIkeNbj8rJurv0V210c",
-                question=f"The startup which is {text}. Concerns the laws above?",
-                examples_context="In 2017, U.S. life expectancy was 78.6 years.",
-                examples=[["What is human life expectancy in the United States?", "78 years."]],
-                max_tokens=256,
+            model="text-davinci-002",
+            file="file-Bil7GJIkeNbj8rJurv0V210c",
+            question=f"""How is the startup which is {text}. Concerns this text? Yes or no""",
+            examples_context="In 2017, U.S. life expectancy was 78.6 years.",
+            examples=[["What is human life expectancy in the United States?", "78 years."]],
+            max_tokens=256,
         )
-        return "No", response["selected_documents"][-1]['text']
-
+        print(response['answers'][0])
+        return response['answers'][0], response["selected_documents"][-1]['text']
 
 class RiskEstimator():
     def __init__(self):
