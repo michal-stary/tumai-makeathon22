@@ -142,13 +142,41 @@
             background-color: white;
         }
 
-        /* .circle1 {
-          margin-left: 0vw;
+        .css-button-arrow--sky {
+          min-width: 130px;
+          height: 40px;
+          color: #fff;
+          padding: 5px 10px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+          display: inline-block;
+          outline: none;
+          overflow: hidden;
+          border-radius: 5px;
+          border: none;
+          background-color: rgb(43, 113, 226)
         }
-
-        .circle2 {
-          margin-left: 60.1vw;
-        } */
+        .css-button-arrow--sky:hover {
+          border-radius: 5px;
+          padding-right: 24px;
+          padding-left:8px;
+        }
+        .css-button-arrow--sky:hover:after {
+          opacity: 1;
+          right: 10px;
+        }
+        .css-button-arrow--sky:after {
+          content: "\00BB";
+          position: absolute;
+          opacity: 0;
+          font-size: 20px;
+          line-height: 40px;
+          top: 0;
+          right: -20px;
+          transition: 0.4s;
+        }
 
         .round {
           position: relative;
@@ -274,7 +302,7 @@
                 Is your AI project compliant to be used in the EU?
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1200px-Flag_of_Europe.svg.png" class="euflag"/>
               </p>
-              <p class="font big remove-after-results">
+              <p class="font big remove-after-results2">
                   Use our AI to find out.
               </p>
           </div>
@@ -393,11 +421,12 @@
             </div>
           </div>
       </div>
-      <br>
-      <br>
       <div class="progress-bar col-10"></div>
-      <br>
       <div class="text-output-field"></div>
+      <br>
+      <div class="container">
+        <button class="css-button-arrow--sky medium" style="display: none;">Next</button>
+      </div>
       <!-- <script src="jakefile.js"></script> -->
       <script>
         const form = document.querySelector("#search-form");
@@ -508,45 +537,65 @@
                   </div>`
                   progressbar.insertAdjacentHTML("beforeend", tag_not_risky)
                 }
-
-                text_output_field.insertAdjacentHTML("beforeend", `
-                <div class="container">
-                  <div class="divider"></div>
-                </div>
-                <div class="container">
-                  <div class="content">
-                    <p class="font big">Analysis of your Input:</p>
-                    <p class="font medium">Percentage of your description that classifies as high risk: ${risk_value*100}%</p>
-                    <p class="font medium">Percentage of your description that classifies for human interaction: ${human_value*100}%</p>
+                // text_output_field.insertAdjacentHTML("beforeend", `
+                // <div class="container">
+                //   <div class="divider"></div>
+                // </div>
+                // <div class="container">
+                //   <div class="content">
+                //     <p class="font big">Analysis of your Input:</p>
+                //     <p class="font medium">Percentage of your description that classifies as high risk: ${risk_value*100}%</p>
+                //     <p class="font medium">Percentage of your description that classifies for human interaction: ${human_value*100}%</p>
+                //     <br>
+                //     <div class="resultcontainer white-box">
+                //       <div class="gap"></div>
+                //       <p style="font-family:Arial, sans-serif;">${form_input.value}</p>
+                //     </div>
+                //   </div>
+                //   <br>
+                // </div>`)
+                const remove_after_results = document.querySelector(".remove-after-results");
+                const remove_after_results2 = document.querySelector(".remove-after-results2");
+                remove_after_results.innerHTML = "";
+                remove_after_results2.innerHTML = "";
+                const arrow_button = document.querySelector(".css-button-arrow--sky");
+                arrow_button.style.display = "block";
+                arrow_button.addEventListener("click", () => {
+                  arrow_button.style.display = "none"
+                  progressbar.innerHTML = ""
+                  const split_array = data["result"]["law"].split(":");
+                  const tag_law = `
+                  <br>
+                  <br>
+                  <div class="container">
+                    <div class="content">
+                      <p class="font big" style="margin-top: 0;">Laws by the EU for which your AI is classified:</p>
+                      <p class="font medium">${split_array[0]}:</p>
+                      <div class="resultcontainer white-box">
+                        <div class="gap"></div>
+                        <p class="medium"; style="font-family:Arial, sans-serif;">${split_array[1]}</p>
+                      </div>
+                    </div>
                     <br>
-                    <div class="resultcontainer white-box">
-                      <div class="gap"></div>
-                      <p style="font-family:Arial, sans-serif;">${form_input.value}</p>
-                    </div>
                   </div>
                   <br>
-                </div>`)
-                const remove_after_results = document.querySelectorAll(".remove-after-results");
-                remove_after_results.forEach(e => {
-                  e.innerHTML = ""
+                  <br>`
+                  text_output_field.insertAdjacentHTML("afterend", `
+                  <div class="container">
+                    <div class="content" style="">
+                      <p class="font big">Analysis of your Input:</p>
+                      <div class="resultcontainer white-box">
+                        <p class="font medium">Percentage of your description that classifies as high risk: ${risk_value*100}%</p>
+                      </div>
+                      <br>
+                      <div class="resultcontainer white-box">
+                        <p class="font medium">Percentage of your description that classifies for human interaction: ${human_value*100}%</p>
+                      </div>
+                    </div>
+                    <br>
+                  </div>`);
+                  text_output_field.insertAdjacentHTML("afterend", tag_law)
                 });
-                const split_array = data["result"]["law"].split(":")
-                const tag_law = `
-                <br>
-                <br>
-                <br>
-                <div class="container">
-                  <div class="content">
-                    <p class="font big">Laws by the EU for which your AI is classified:</p>
-                    <p class="font medium">${split_array[0]}:</p>
-                    <div class="resultcontainer white-box">
-                      <div class="gap"></div>
-                      <p style="font-family:Arial, sans-serif;">${split_array[1]}</p>
-                    </div>
-                  </div>
-                  <br>
-                </div>`
-                text_output_field.insertAdjacentHTML("afterend", tag_law)
               } else {
                 adding_alert.innerHTML = ""
                 const tag_alert = `<div class="resultcontainer alert-box">
