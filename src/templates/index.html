@@ -313,7 +313,7 @@
             <p class="font big">Describe your AI projects in 500 +/- words:</p>
             <form id="search-form" class="row">
               <textarea class="aidescription small form-control" placeholder="Input your AI description here" id="search-input"></textarea>
-              <div class="content">
+              <!-- <div class="content">
                 <p class="font big">
                   Checklist for Accuracy:
                 </p>
@@ -411,7 +411,7 @@
                       <div class="gap"></div>
                       <p class="font medium checkboxtext">My AI project involves administration of justice or democratic processes</p>
                   </div>
-                </div>
+                </div> -->
                 <br>
                 <div class="adding_alert"></div>
                 <div class="buttoncontainer">
@@ -455,7 +455,7 @@
           fetch("http://reg-score.germanywestcentral.azurecontainer.io:8080/score", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"text": `${form_input.value}`, "biometric_identification": `${array[0]}`, "critical_infrastructure": `${array[1]}`, "education": `${array[2]}`, "employment": `${array[3]}`, "restrict_access": `${array[4]}`, "law_enforcement": `${array[5]}`, "migration": `${array[6]}`, "democratic_processes": `${array[7]}`})
+            body: JSON.stringify({"text": `${form_input.value}`})
           })
             .then(response => response.json())
             .then((data) => {
@@ -471,8 +471,8 @@
               // human_value = data["job"]
               if (form_input.value.length > 150) {
                 // const human_value_skaled = human_value * 60.1
-                const human_value_skaled = 30
-                if (risk_value) {
+                const human_value_skaled = human_value * 60.1
+                if (risk_value == "Yes") {
                   const tag_risky = `
                   <div class="container">
                     <div class="content">
@@ -480,12 +480,12 @@
                       <div class="resultcontainer">
                         <div class="circle font big">1</div>
                         <div class="gap"></div>
-                        <p class="font medium">Risk classification of your AI:</p>
+                        <p class="font medium">Your AI classifies as high risk.</p>
                       </div>
                       <div class="resultcontainer">
-                        <div class="resultcontainer white-box">
-                        <div class="gap"></div>
-                        <p class="medium"; style="font-family:Arial, sans-serif;">${risk_value}</p>
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: 60.1vw;"></div>
+                        </div>
                       </div>
                       </div>
                     </div>
@@ -499,12 +499,12 @@
                       <div class="resultcontainer">
                         <div class="circle font big">1</div>
                         <div class="gap"></div>
-                        <p class="font medium">Risk classification of your AI:</p>
+                        <p class="font medium">Your AI classifies as low risk.</p>
                       </div>
                       <div class="resultcontainer">
-                        <div class="resultcontainer white-box">
-                        <div class="gap"></div>
-                        <p class="medium"; style="font-family:Arial, sans-serif;">${risk_value}</p>
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: 0vw;"></div>
+                        </div>
                       </div>
                       </div>
                     </div>
@@ -575,7 +575,7 @@
                 arrow_button.addEventListener("click", () => {
                   arrow_button.style.display = "none"
                   progressbar.innerHTML = ""
-                  const split_array = data["result"]["law"].split(":");
+                  const split_array = data["result"]["law"];
                   // const split_array = data["job"].split(":");
                   const tag_law = `
                   <br>
@@ -583,10 +583,9 @@
                   <div class="container">
                     <div class="content">
                       <p class="font big" style="margin-top: 0;">Laws by the EU for which your AI is classified:</p>
-                      <p class="font medium">${split_array[0]}:</p>
                       <div class="resultcontainer white-box">
                         <div class="gap"></div>
-                        <p class="medium"; style="font-family:Arial, sans-serif;">${split_array[1]}</p>
+                        <p class="medium"; style="font-family:Arial, sans-serif;">${split_array}</p>
                       </div>
                     </div>
                     <br>
