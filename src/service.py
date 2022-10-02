@@ -24,6 +24,7 @@ class Server(object):
         cors = CORS(self.app)
 
         self.app.add_url_rule(rule='/score', view_func=self.score, methods=['POST'])
+        self.app.add_url_rule(rule='/', view_func=self.demo, methods=['GET'])
 
         self.app.register_error_handler(HTTPStatus.INTERNAL_SERVER_ERROR, self.internal_server_error)
         self.app.register_error_handler(HTTPException, self._handle_http_exception)
@@ -50,10 +51,9 @@ class Server(object):
             logger.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
             return Response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
-    # def demo(self):
-    #     contract_render_url = posixpath.join(self.proxy_url_prefix, 'file')
-    #     return render_template('index.html', contract_render_url=contract_render_url)
-    #
+    def demo(self):
+        return render_template('index.html')
+
     # def visualisation(self):
     #     return render_template('visualisation.html')
 

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!-- <link rel="stylesheet" href="Rams.css" /> -->
+      <style>
+        body {
+            background-color: white;
+            margin-bottom: 5vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100vw;
+        }
+
+        .content {
+            width: 75vw;
+            justify-content: center;
+        }
+
+        .divider {
+            width: 80vw;
+            background-color: rgb(235, 235, 235);
+            height: 0.2vw;
+            border-radius: 2vh;
+        }
+
+        .button {
+            cursor: pointer;
+            background-color: rgb(43, 113, 226);
+            border-radius: 2vh;
+            padding: 1vh 2vh 1vh 2vh;
+            height: 8vh;
+            border-width: 0;
+            margin: auto;
+            color: white;
+        }
+
+        .button:active {
+            color: black;
+        }
+
+        .font {
+            font-family:Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .big {
+            font-size: 5vh;
+        }
+
+        .medium {
+            font-size: 3vh;
+            font-weight: 500;
+        }
+
+        .small {
+            font-size: 2vh;
+        }
+
+        .euflag {
+            height: 4vh;
+        }
+
+        .aidescription {
+            width:  70vw;
+            height: 30vh;
+            border-radius: 2vh;
+            resize: vertical;
+            padding: 2vw;
+            border-width: 0;
+            box-shadow: 0 0 1vw black;
+            margin-bottom: 4vh;
+        }
+
+        .buttoncontainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5vh;
+        }
+
+        .resultcontainer {
+            display: flex;
+            align-items: center;
+            text-overflow: ellipsis;
+        }
+
+        .white-box {
+          padding: 0vh 3vh;
+          background: rgba( 255, 255, 255, 0.1 );
+          box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+          backdrop-filter: blur( 13.5px );
+          -webkit-backdrop-filter: blur( 13.5px );
+          border-radius: 10px;
+          border: 1px solid rgba( 255, 255, 255, 0.18 );
+        }
+
+        .alert-box {
+          padding: 0vh 0vh;
+          background: rgba(249, 249, 124, 0.4);
+          box-shadow: 0 2px 8px 0 rgba( 31, 38, 135, 0.37 );
+          backdrop-filter: blur( 13.5px );
+          border-radius: 10px;
+          color: rgba(73, 73, 0, 0.9);
+        }
+
+        .circle {
+            background-color: rgb(43, 113, 226);
+            height: 8vh;
+            width: 8vh;
+            border-radius: 8vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            line-height: 8vh;
+            flex-shrink: 0;
+        }
+
+        .gap {
+            width: 2vh;
+        }
+
+        .riskbarometer {
+            height: 5vw;
+            width: 65vw;
+            border-radius: 10vw;
+            background: rgb(0,255,41);
+            background: linear-gradient(90deg, rgba(0,255,41,1) 0%, rgba(255,195,43,1) 50%, rgba(255,0,0,1) 100%);
+            margin-left: 10vw;
+            margin-bottom: 5vh;
+        }
+
+        .barometercircle {
+            height: 3.5vw;
+            width: 3.5vw;
+            border: 0.75vw solid black;
+            border-radius: 10vw;
+            margin-left: 60.1vw;
+            background-color: white;
+        }
+
+        /* .circle1 {
+          margin-left: 0vw;
+        }
+
+        .circle2 {
+          margin-left: 60.1vw;
+        } */
+
+        .round {
+          position: relative;
+        }
+        .round label {
+          background-color: white;
+          border: 0.5vh solid black;
+          border-radius: 50%;
+          cursor: pointer;
+          height: 7vh;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 7vh;
+        }
+        .round label:after {
+          border: 1vh solid white;
+          border-top: none;
+          border-right: none;
+          content: "";
+          height: 1.5vh;
+          left: 1.5vh;
+          opacity: 0;
+          position: absolute;
+          top: 1.85vh;
+          transform: rotate(-45deg);
+          width: 3vh;
+          border-radius: 10%;
+        }
+        .round input[id="checkbox"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox2"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox2"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox2"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox3"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox3"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox3"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox4"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox4"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox4"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox5"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox5"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox5"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox6"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox6"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox6"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox7"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox7"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox7"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .round input[id="checkbox8"] {
+          visibility: hidden;
+        }
+        .round input[id="checkbox8"]:checked + label {
+          background-color: rgb(43, 113, 226);
+        }
+        .round input[id="checkbox8"]:checked + label:after {
+          opacity: 1;
+        }
+
+        .checkboxcontainer {
+          height: 8vh;
+          width: 8vh;
+          flex-shrink: 0;
+        }
+      </style>
+      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
+      <title>EU AI Compliance by Rams</title>
+    </head>
+    <body>
+      <div class="container">
+          <div class="content">
+              <p class="font big">
+                Is your AI project compliant to be used in the EU?
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1200px-Flag_of_Europe.svg.png" class="euflag"/>
+              </p>
+              <p class="font big remove-after-results">
+                  Use our AI to find out.
+              </p>
+          </div>
+      </div>
+      <div class="remove-after-results">
+        <div class="container">
+          <div class="content">
+            <p class="font big">Describe your AI projects in 500 +/- words:</p>
+            <form id="search-form" class="row">
+              <textarea class="aidescription small form-control" placeholder="Input your AI description here" id="search-input"></textarea>
+              <div class="content">
+                <p class="font big">
+                  Checklist for Accuracy:
+                </p>
+                <div class="resultcontainer">
+                  <div class="checkboxcontainer">
+                    <div class="round">
+                      <input type="checkbox" id="checkbox" />
+                      <label for="checkbox"></label>
+                    </div>
+                  </div>
+                  <div class="gap"></div>
+                    <p class="font medium checkboxtext">My AI project involves biometric identification or categorisation of natural persons</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                    <div class="checkboxcontainer">
+                      <div class="round">
+                        <input type="checkbox" id="checkbox2" />
+                        <label for="checkbox2"></label>
+                      </div>
+                    </div>
+                    <div class="gap"></div>
+                    <p class="font medium checkboxtext">My AI project involves managing or operating critical infrastructure</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox3" />
+                              <label for="checkbox3"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project involves eductaion or vocational training evaluation</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox4" />
+                              <label for="checkbox4"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project touches the topics employment, workers management or access to self-employment</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox5" />
+                              <label for="checkbox5"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project can restrict access to essential private services or public services</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox6" />
+                              <label for="checkbox6"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project involves law enforcement</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox7" />
+                              <label for="checkbox7"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project involves migration, asylum or border management</p>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="resultcontainer">
+                      <div class="checkboxcontainer">
+                          <div class="round">
+                              <input type="checkbox" id="checkbox8" />
+                              <label for="checkbox8"></label>
+                          </div>
+                      </div>
+                      <div class="gap"></div>
+                      <p class="font medium checkboxtext">My AI project involves administration of justice or democratic processes</p>
+                  </div>
+                </div>
+                <br>
+                <div class="adding_alert"></div>
+                <div class="buttoncontainer">
+                  <input type="submit" class="font medium button" value="Submit">
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+      <br>
+      <br>
+      <div class="progress-bar col-10"></div>
+      <br>
+      <div class="text-output-field"></div>
+      <!-- <script src="jakefile.js"></script> -->
+      <script>
+        const form = document.querySelector("#search-form");
+        const form_input = document.querySelector("#search-input");
+        const checkbox_inputs = document.querySelectorAll(".checkboxcontainer")
+        const adding_alert = document.querySelector(".adding_alert")
+
+        form.addEventListener("submit", (event) => {
+          const array = []
+          for (let index = 0; index < checkbox_inputs.length; index++) {
+            const element = array[index];
+            if (index > 0) {
+              array.push(document.querySelector(`#checkbox${index+1}`).checked)
+            } else {
+              array.push(document.querySelector("#checkbox").checked)
+            }
+          }
+          event.preventDefault() // to prevent <form>'s native behaviour
+          // console.log(event)
+          // console.log({"text": `${form_input.value}`, "biometric_identification": `${array[0]}`, "critical_infrastructure": `${array[1]}`, "education": `${array[2]}`, "employment": `${array[3]}`, "restrict_access": `${array[4]}`, "law_enforcement": `${array[5]}`, "migration": `${array[6]}`, "democratic_processes": `${array[7]}`})
+          fetch("http://reg-score.germanywestcentral.azurecontainer.io:8080/score", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"text": `${form_input.value}`, "biometric_identification": `${array[0]}`, "critical_infrastructure": `${array[1]}`, "education": `${array[2]}`, "employment": `${array[3]}`, "restrict_access": `${array[4]}`, "law_enforcement": `${array[5]}`, "migration": `${array[6]}`, "democratic_processes": `${array[7]}`})
+          })
+            .then(response => response.json())
+            .then((data) => {
+              console.log(data)
+              const progressbar = document.querySelector(".progress-bar")
+              const text_output_field = document.querySelector(".text-output-field")
+              progressbar.innerHTML = ""
+              text_output_field.innerHTML = ""
+              risk_value = data["result"]["risk"]
+              human_value = data["result"]["human"]
+              if (form_input.value.length > 150) {
+                const risk_value_skaled = risk_value * 60.1
+                const human_value_skaled = human_value * 60.1
+                if (risk_value > 0.5 ) {
+                  const tag_risky = `
+                  <div class="container">
+                    <div class="content">
+                      <p class="font big">Your results:</p>
+                      <div class="resultcontainer">
+                        <div class="circle font big">1</div>
+                        <div class="gap"></div>
+                        <p class="font medium">Your AI classifies as high risk.</p>
+                      </div>
+                      <div class="resultcontainer">
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: ${risk_value_skaled}vw;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
+                  progressbar.insertAdjacentHTML("afterbegin", tag_risky)
+                } else {
+                  const tag_not_risky = `
+                  <div class="container">
+                    <div class="content">
+                      <p class="font big">Your results:</p>
+                      <div class="resultcontainer">
+                        <div class="circle font big">1</div>
+                        <div class="gap"></div>
+                        <p class="font medium">Your AI classifies as low risk.</p>
+                      </div>
+                      <div class="resultcontainer">
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: ${risk_value_skaled}vw;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
+                  progressbar.insertAdjacentHTML("afterbegin", tag_not_risky)
+                }
+                if (human_value > 0.5 ) {
+                  const tag_risky = `
+                  <div class="container">
+                    <div class="content">
+                      <div class="resultcontainer">
+                        <div class="circle font big">2</div>
+                        <div class="gap"></div>
+                        <p class="font medium">Your AI interacts with humans.</p>
+                      </div>
+                      <div class="resultcontainer">
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: ${human_value_skaled}vw;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
+                  progressbar.insertAdjacentHTML("beforeend", tag_risky)
+                } else {
+                  const tag_not_risky = `
+                  <div class="container">
+                    <div class="content">
+                      <div class="resultcontainer">
+                        <div class="circle font big">2</div>
+                        <div class="gap"></div>
+                        <p class="font medium">Your AI does not interact with humans.</p>
+                      </div>
+                      <div class="resultcontainer">
+                        <div class="riskbarometer">
+                          <div class="barometercircle" style="margin-left: ${human_value_skaled}vw;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
+                  progressbar.insertAdjacentHTML("beforeend", tag_not_risky)
+                }
+                text_output_field.insertAdjacentHTML("beforeend", `
+                <div class="container">
+                  <div class="divider"></div>
+                </div>
+                <div class="container">
+                  <div class="content">
+                    <p class="font big">Analysis of your Input:</p>
+                    <p class="font medium">Percentage of your description that classifies as high risk: ${risk_value*100}%</p>
+                    <p class="font medium">Percentage of your description that classifies for human interaction: ${human_value*100}%</p>
+                    <br>
+                    <div class="resultcontainer white-box">
+                      <div class="gap"></div>
+                      <p>${form_input.value}</p>
+                    </div>
+                  </div>
+                  <br>
+                </div>`)
+                const remove_after_results = document.querySelectorAll(".remove-after-results");
+                remove_after_results.forEach(e => {
+                  e.innerHTML = ""
+                });
+              } else {
+                adding_alert.innerHTML = ""
+                const tag_alert = `<div class="resultcontainer alert-box">
+                <div class="gap"></div>
+                  <p class="font medium">Please write atleast 300 words.</p>
+                </div><br>`
+                adding_alert.insertAdjacentHTML("beforeend", tag_alert)
+              }
+            });
+          // text_output_field.innerText = form_input.value
+        });
+      </script>
+        <!-- the script filename needs to be changed probably when in production -->
+        <!-- <script src="https://incredible-clafoutis-bbbffb.netlify.app/script.js"></script> -->
+    </body>
+</html>
