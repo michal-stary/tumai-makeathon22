@@ -19,12 +19,7 @@ To deal with lack of useful data, we decided that instead of directly classifyin
 
 We have again used deberta and sentence-transformers models for multilabel classification into classes corresponding to the critical topics or low-risk class. Despite being able to teach the model to distinguish well the topics on the generated data, when tested on these few high-risk examples we have been provided, it was not doing much good.
 
-So, finally, in the deepest desperation on Saturday night we decided to try one more approach called semantic search against the regulation annex document. 
-
-The first idea was to use GPT3 again, Rob went for that. But it showed just mediocre results. 
-Michal followed different path and used sentence-transformers to embed the regulations sections/critical topics and also the descriptions.
-
-At this moment, Michal got incredibly good results. It looked too good to be true, but we checked it also on some descriptions imagined by Moritz and it still worked well. So Rob stopped doing on the GPT3 and move on to human involvement prediction. And Michal moved on to host the frontend and finish the backend.
+So, finally, in the deepest desperation on Saturday night we decided to try one more approach called semantic search against the regulation annex document. The first idea was to use GPT3 again, Rob went for that. But it showed just mediocre results. Michal followed different path and used sentence-transformers to embed the regulations sections/critical topics and also the descriptions. At this moment, Michal got incredibly good results. It looked too good to be true, but we checked it also on some descriptions imagined by Moritz and it still worked well. So Rob stopped doing on the GPT3 and move on to human involvement prediction. And Michal moved on to host the frontend and finish the backend.
 
 **Sunday**
 
