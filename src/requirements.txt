@@ -1,3 +1,6 @@
 flask
 flask_cors
 werkzeug
+sentence-transformers
+pandas
+numpy

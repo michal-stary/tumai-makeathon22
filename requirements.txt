@@ -4,3 +4,5 @@ sentencepiece
 sentence-transformers
 flask
 flask_cors
+pandas
+numpy
