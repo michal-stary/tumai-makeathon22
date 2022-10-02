@@ -18,10 +18,10 @@ class RiskEstimator():
     def __call__(self, text, **kwargs):
 
         a = self.embeddings_annex
-        b = self.model(text)
+        b = self.model([text])
         cos_sim = (a @ b.T) / (norm(a) * norm(b))
         print(cos_sim.argmax(0) > 0.025, self.df_annex.iloc[cos_sim.argmax(0)])
-        return cos_sim.argmax(0) > 0.025, self.df_annex.iloc[cos_sim.argmax(0)]
+        return cos_sim.argmax(0)[0] > 0.025, self.df_annex.iloc[cos_sim.argmax(0)[0]]
 
 
     def parse_numbered(self, text):
