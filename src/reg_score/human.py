@@ -10,7 +10,7 @@ class HumanEstimator():
             "bert-base-uncased",
             do_lower_case=True
         )
-        # self.model = torch.load(model_path)
+        self.model = torch.load(model_path)
 
     def __cal__(self, text):
         encoded = self.tokenizer.encode_plus(

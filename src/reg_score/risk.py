@@ -6,7 +6,7 @@ from numpy import dot
 from numpy.linalg import norm
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 class RiskEstimatorGPT3():
     def __init__(self):
         pass
