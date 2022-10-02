@@ -313,7 +313,7 @@
             <p class="font big">Describe your AI projects in 500 +/- words:</p>
             <form id="search-form" class="row">
               <textarea class="aidescription small form-control" placeholder="Input your AI description here" id="search-input"></textarea>
-              <div class="content">
+              <!-- <div class="content">
                 <p class="font big">
                   Checklist for Accuracy:
                 </p>
@@ -411,7 +411,7 @@
                       <div class="gap"></div>
                       <p class="font medium checkboxtext">My AI project involves administration of justice or democratic processes</p>
                   </div>
-                </div>
+                </div> -->
                 <br>
                 <div class="adding_alert"></div>
                 <div class="buttoncontainer">
@@ -447,10 +447,15 @@
           event.preventDefault() // to prevent <form>'s native behaviour
           // console.log(event)
           // console.log({"text": `${form_input.value}`, "biometric_identification": `${array[0]}`, "critical_infrastructure": `${array[1]}`, "education": `${array[2]}`, "employment": `${array[3]}`, "restrict_access": `${array[4]}`, "law_enforcement": `${array[5]}`, "migration": `${array[6]}`, "democratic_processes": `${array[7]}`})
+          // fetch("https://reqres.in/api/users", {
+          //   method: "POST",
+          //   headers: {"Content-Type": "application/json"},
+          //   body: JSON.stringify({"name": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.","job": "Lorem: ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,"})
+          // })
           fetch("http://reg-score.germanywestcentral.azurecontainer.io:8080/score", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"text": `${form_input.value}`, "biometric_identification": `${array[0]}`, "critical_infrastructure": `${array[1]}`, "education": `${array[2]}`, "employment": `${array[3]}`, "restrict_access": `${array[4]}`, "law_enforcement": `${array[5]}`, "migration": `${array[6]}`, "democratic_processes": `${array[7]}`})
+            body: JSON.stringify({"text": `${form_input.value}`})
           })
             .then(response => response.json())
             .then((data) => {
@@ -462,10 +467,12 @@
               text_output_field.innerHTML = ""
               risk_value = data["result"]["risk"]
               human_value = data["result"]["human"]
+              // risk_value = data["name"]
+              // human_value = data["job"]
               if (form_input.value.length > 150) {
-                const risk_value_skaled = risk_value * 60.1
+                // const human_value_skaled = human_value * 60.1
                 const human_value_skaled = human_value * 60.1
-                if (risk_value > 0.5 ) {
+                if (risk_value == "Yes") {
                   const tag_risky = `
                   <div class="container">
                     <div class="content">
@@ -477,8 +484,9 @@
                       </div>
                       <div class="resultcontainer">
                         <div class="riskbarometer">
-                          <div class="barometercircle" style="margin-left: ${risk_value_skaled}vw;"></div>
+                          <div class="barometercircle" style="margin-left: 60.1vw;"></div>
                         </div>
+                      </div>
                       </div>
                     </div>
                   </div>`
@@ -495,15 +503,17 @@
                       </div>
                       <div class="resultcontainer">
                         <div class="riskbarometer">
-                          <div class="barometercircle" style="margin-left: ${risk_value_skaled}vw;"></div>
+                          <div class="barometercircle" style="margin-left: 0vw;"></div>
                         </div>
+                      </div>
                       </div>
                     </div>
                   </div>`
                   progressbar.insertAdjacentHTML("afterbegin", tag_not_risky)
                 }
                 if (human_value > 0.5 ) {
-                  const tag_risky = `
+                  const tag_human = `
+                  <br>
                   <div class="container">
                     <div class="content">
                       <div class="resultcontainer">
@@ -518,9 +528,11 @@
                       </div>
                     </div>
                   </div>`
-                  progressbar.insertAdjacentHTML("beforeend", tag_risky)
+                  progressbar.insertAdjacentHTML("beforeend", tag_human)
                 } else {
-                  const tag_not_risky = `
+                  const tag_not_human = `
+                  <br>
+                  <br>
                   <div class="container">
                     <div class="content">
                       <div class="resultcontainer">
@@ -535,7 +547,7 @@
                       </div>
                     </div>
                   </div>`
-                  progressbar.insertAdjacentHTML("beforeend", tag_not_risky)
+                  progressbar.insertAdjacentHTML("beforeend", tag_not_human)
                 }
                 // text_output_field.insertAdjacentHTML("beforeend", `
                 // <div class="container">
@@ -563,17 +575,17 @@
                 arrow_button.addEventListener("click", () => {
                   arrow_button.style.display = "none"
                   progressbar.innerHTML = ""
-                  const split_array = data["result"]["law"].split(":");
+                  const split_array = data["result"]["law"];
+                  // const split_array = data["job"].split(":");
                   const tag_law = `
                   <br>
                   <br>
                   <div class="container">
                     <div class="content">
                       <p class="font big" style="margin-top: 0;">Laws by the EU for which your AI is classified:</p>
-                      <p class="font medium">${split_array[0]}:</p>
                       <div class="resultcontainer white-box">
                         <div class="gap"></div>
-                        <p class="medium"; style="font-family:Arial, sans-serif;">${split_array[1]}</p>
+                        <p class="medium"; style="font-family:Arial, sans-serif;">${split_array}</p>
                       </div>
                     </div>
                     <br>
@@ -584,10 +596,6 @@
                   <div class="container">
                     <div class="content" style="">
                       <p class="font big">Analysis of your Input:</p>
-                      <div class="resultcontainer white-box">
-                        <p class="font medium">Percentage of your description that classifies as high risk: ${risk_value*100}%</p>
-                      </div>
-                      <br>
                       <div class="resultcontainer white-box">
                         <p class="font medium">Percentage of your description that classifies for human interaction: ${human_value*100}%</p>
                       </div>
