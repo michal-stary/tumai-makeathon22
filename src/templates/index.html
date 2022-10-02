@@ -426,6 +426,7 @@
             .then(response => response.json())
             .then((data) => {
               console.log(data)
+              console.log("start")
               const progressbar = document.querySelector(".progress-bar")
               const text_output_field = document.querySelector(".text-output-field")
               progressbar.innerHTML = ""
@@ -507,6 +508,7 @@
                   </div>`
                   progressbar.insertAdjacentHTML("beforeend", tag_not_risky)
                 }
+
                 text_output_field.insertAdjacentHTML("beforeend", `
                 <div class="container">
                   <div class="divider"></div>
@@ -528,6 +530,23 @@
                 remove_after_results.forEach(e => {
                   e.innerHTML = ""
                 });
+                const split_array = data["result"]["law"].split(":")
+                const tag_law = `
+                <br>
+                <br>
+                <br>
+                <div class="container">
+                  <div class="content">
+                    <p class="font big">Laws by the EU for which your AI is classified:</p>
+                    <p class="font medium">${split_array[0]}:</p>
+                    <div class="resultcontainer white-box">
+                      <div class="gap"></div>
+                      <p style="font-family:Arial, sans-serif;">${split_array[1]}</p>
+                    </div>
+                  </div>
+                  <br>
+                </div>`
+                text_output_field.insertAdjacentHTML("afterend", tag_law)
               } else {
                 adding_alert.innerHTML = ""
                 const tag_alert = `<div class="resultcontainer alert-box">
