@@ -1,11 +1,27 @@
 import pandas as pd
 import numpy as np
-# from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer
 import re
 from numpy import dot
 from numpy.linalg import norm
 import openai
 
+class RiskEstimatorDeberta():
+    def __init__(self, model_path, 
+                       model_name="MoritzLaurer/DeBERTa-v3-xsmall-mnli-fever-anli-ling-binary"):
+        
+        self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name)
+        self.model = torch.load(model_path)
+
+
+    def __call__(self, text, **kwargs):
+        self.encodings = self.tokenizer([text], return_tensors="pt", padding=True)
+        item = {key: torch.tensor(val[0]) for key, val in self.encodings.items()
+                
+        output = self.model(**item)
+        return (output.logits > 0).float(), ""
+                
 openai.api_key = "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"
 class RiskEstimatorGPT3():
     def __init__(self):
@@ -22,7 +38,10 @@ class RiskEstimatorGPT3():
         print(response['answers'][0])
         return response['answers'][0], response["selected_documents"][-1]['text']
 
-class RiskEstimator():
+    
+    
+    
+class RiskEstimatorCosine():
     def __init__(self):
         with open("src/annex_data.txt") as f:
             annex_file = f.read()
